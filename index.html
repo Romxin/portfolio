@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,6 +15,7 @@
     <li><a href="#formation">Formation</a></li>
     <li><a href="#competences">Compétences</a></li>
     <li><a href="#projets">Projets</a></li>
+    <li><a href="#veille">Veille</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -66,6 +66,59 @@
   </ul>
 </section>
 
+<!-- VEILLE TECHNOLOGIQUE -->
+<section id="veille" class="card">
+  <h2>Veille Technologique</h2>
+  <p>Voici les dernières actualités en cybersécurité issues de CERT-FR :</p>
+  <ul id="rss-feed">
+    <li>Chargement de la veille en cours...</li>
+  </ul>
+</section>
+
+<script>
+  async function fetchFeed(url) {
+    const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent(url);
+    const response = await fetch(proxyUrl);
+    const data = await response.json();
+    const parser = new DOMParser();
+    return parser.parseFromString(data.contents, "application/xml");
+  }
+
+  async function loadRSS() {
+    const feedList = document.getElementById("rss-feed");
+    feedList.innerHTML = "";
+
+    const feed = { name: "CERT-FR", url: "https://www.cert.ssi.gouv.fr/feed/" };
+
+    try {
+      const xml = await fetchFeed(feed.url);
+      const items = xml.querySelectorAll("item");
+
+      for (let i = 0; i < 3; i++) {
+        const item = items[i];
+        const title = item.querySelector("title").textContent;
+        const link = item.querySelector("link").textContent;
+        const pubDateRaw = item.querySelector("pubDate")?.textContent ?? "";
+        const pubDate = pubDateRaw
+          ? new Date(pubDateRaw).toLocaleDateString("fr-FR", {
+              weekday: "short", year: "numeric", month: "long", day: "numeric"
+            })
+          : "";
+
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${feed.name} :</strong> <a href="${link}" target="_blank" rel="noopener">${title}</a><br><small>${pubDate}</small>`;
+        feedList.appendChild(li);
+      }
+    } catch (error) {
+      const li = document.createElement("li");
+      li.textContent = `Erreur lors du chargement du flux ${feed.name}`;
+      feedList.appendChild(li);
+    }
+  }
+
+  loadRSS();
+</script>
+
 <!-- CONTACT -->
 <section id="contact" class="card">
   <h2>Contact</h2>
@@ -79,8 +132,12 @@
 <!-- FOOTER -->
 <footer>
   <div class="social-links">
-    <a href="#"><img src="assets/github.svg" alt="GitHub" /></a>
-    <a href="#"><img src="assets/gitlab.svg" alt="GitLab" /></a>
+    <a href="https://github.com/Romxin" target="_blank" rel="noopener" title="Voir mon GitHub">
+      <img src="assets/github.svg" alt="GitHub" />
+    </a>
+    <a href="https://gitlab.com/ShuOnSSH" target="_blank" rel="noopener" title="Voir mon GitLab">
+      <img src="assets/gitlab.svg" alt="GitLab" />
+    </a>
   </div>
   <p>© 2025 Shu</p>
 </footer>

@@ -179,3 +179,15 @@ footer {
   color: var(--text-muted);
   margin-top: 4rem;
 }
+#rss-feed li {
+  margin-bottom: 1em;
+}
+
+#rss-feed a {
+  color: #00bfff; /* Bleu clair lisible sur fond sombre */
+  text-decoration: none;
+}
+
+#rss-feed a:hover {
+  text-decoration: underline;
+}
