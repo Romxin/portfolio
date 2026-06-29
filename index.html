@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>shu@portfolio:~</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="terminal-container">
+
+    <div class="titlebar">
+      <div class="dots">
+        <span class="dot dr"></span>
+        <span class="dot dy"></span>
+        <span class="dot dg"></span>
+      </div>
+      <span class="t-title">shu@portfolio — bash</span>
+      <div style="width:50px"></div>
+    </div>
+
+    <div class="term-body" id="term-body">
+      <div id="output"></div>
+      <div class="input-line" id="input-line" style="display:none">
+        <span class="prompt">shu@portfolio:~$&nbsp;</span>
+        <input type="text" id="cmd-input" autocomplete="off" spellcheck="false" autofocus />
+      </div>
+    </div>
+
+  </div>
+  <script src="tetris.js"></script>
+  <script src="snake.js"></script>
+  <script src="pvz.js"></script>
+  <script src="terminal.js"></script>
+</body>
+</html>
